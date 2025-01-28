@@ -1,18 +1,15 @@
 import { Repository } from 'typeorm';
-import { User } from '../entities/user.entity';
+import { Product } from '../entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
-export class UserRepository extends Repository<User> {
-  constructor(@InjectRepository(User) userRepository: Repository<User>) {
+export class ProductRepository extends Repository<Product> {
+  constructor(
+    @InjectRepository(Product) productRepository: Repository<Product>,
+  ) {
     super(
-      userRepository.target,
-      userRepository.manager,
-      userRepository.queryRunner,
+      productRepository.target,
+      productRepository.manager,
+      productRepository.queryRunner,
     );
-  }
-  async findExcept(user: User): Promise<User[]> {
-    return this.createQueryBuilder('u')
-      .where('u.email != :email', { email: user.email })
-      .getMany();
   }
 }
