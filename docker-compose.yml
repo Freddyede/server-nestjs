@@ -1,21 +1,4 @@
 services:
-  backend:
-    build:
-      context: . # Répertoire contenant le Dockerfile de NestJS
-      dockerfile: Dockerfile
-    container_name: nest-backend
-    ports:
-      - "3000:3000" # Expose le backend sur le port 3000
-    environment:
-      - NODE_ENV=production
-      - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASSWORD=my-secret-password
-      - DB_NAME=nest_angular_dev
-    networks:
-      - app-network
-
   mysql:
     build:
       context: ./mysql
@@ -33,17 +16,22 @@ services:
       - ./mysql/nest_angular_dev.sql:/docker-entrypoint-initdb.d/init.sql:ro # Script d'initialisation
     networks:
       - app-network
-  frontend:
+  backend:
     build:
-      context: ./client  # Assurez-vous que le chemin pointe vers le dossier de votre app Angular
+      context: . # Répertoire contenant le Dockerfile de NestJS
       dockerfile: Dockerfile
-    container_name: angular-frontend
+    container_name: nest-backend
     ports:
-      - "4200:4200"  # Mapper le port 4200 du conteneur vers le port 4200 sur l'hôte
+      - "3000:3000" # Expose le backend sur le port 3000
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=my-secret-password
+      - DB_NAME=nest_angular_dev
     networks:
       - app-network
-    environment:
-      API_URL: http://backend:3000 # URL pour accéder au backend via le réseau Docker interne
 
 networks:
   app-network:
