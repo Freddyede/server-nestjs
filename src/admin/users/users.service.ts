@@ -45,4 +45,18 @@ export class UsersService {
       });
     }
   }
+  async deleted(id: string, @Req() req: Request) {
+    if (req['user']) {
+      await this.userRepository.delete(id);
+      return {
+        message: 'Company delete successfully',
+        statusCode: HttpStatus.OK,
+      };
+    } else {
+      throw new UnauthorizedException({
+        message: "You couldn't get this resource",
+        status: HttpStatus.UNAUTHORIZED,
+      });
+    }
+  }
 }
