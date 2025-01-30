@@ -21,7 +21,7 @@ export class User {
   lastName: string;
   @Column()
   firstName: string;
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   avatar: string;
   @Column({ type: 'datetime', default: new Date(), nullable: false })
   @CreateDateColumn()

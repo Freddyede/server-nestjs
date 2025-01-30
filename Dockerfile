@@ -1,5 +1,5 @@
 # Étape 1 : Utiliser une image Node.js pour construire l'application
-FROM node:18 AS build
+FROM node:latest AS build
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -16,8 +16,8 @@ COPY . .
 # Construire l'application pour la production
 RUN npm run build
 
-# Étape 2 : Utiliser une image Node.js minimale pour exécuter l'application
-FROM node:18-alpine
+# Étape 2 : Utiliser la dernière image Node.js pour exécuter l'application
+FROM node:latest
 
 # Définir le répertoire de travail
 WORKDIR /app

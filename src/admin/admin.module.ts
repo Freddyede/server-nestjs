@@ -6,9 +6,10 @@ import { APP_GUARD } from '@nestjs/core';
 import { UserRepository } from '../common/repositories/user.repository';
 import { CommonModule } from '../common/common.module';
 import { ProductRepository } from '../common/repositories/product.repository';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [CommonModule],
+  imports: [CommonModule, UsersModule],
   controllers: [AdminController],
   providers: [
     { provide: APP_GUARD, useClass: AuthGuard },
