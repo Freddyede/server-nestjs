@@ -31,8 +31,9 @@ export class UsersService {
     if (req['user']) {
       const salt: string = await genSalt(10);
       user.password = await hash(user.password, salt);
+      user.username = null;
       user.roles = { roles: ['ROLE_COMPANY'] };
-      this.userRepository.create(user);
+      await this.userRepository.save(user);
       return {
         message: 'User created successfully',
         status: HttpStatus.CREATED,

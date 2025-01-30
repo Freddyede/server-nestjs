@@ -18,13 +18,13 @@ export class UserDto {
   password: string;
   @IsEmpty()
   roles?: { roles: string[] };
-  @IsNotEmpty()
+  @IsEmpty()
   username: string;
   @IsNotEmpty()
   lastName: string;
   @IsNotEmpty()
   firstName: string;
-  @IsNotEmpty()
+  @IsEmpty()
   avatar: string;
   @IsEmpty()
   created_at?: Date;
